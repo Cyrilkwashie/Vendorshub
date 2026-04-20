@@ -1,3 +1,7 @@
+"use client";
+
+import { useState } from "react";
+
 const faqs = [
   {
     q: "How quickly can I set up my store?",
@@ -34,6 +38,8 @@ const faqs = [
 ];
 
 export function FAQ() {
+  const [open, setOpen] = useState<number | null>(null);
+
   return (
     <section id="faq" className="bg-background py-20 md:py-28">
       <div className="mx-auto max-w-4xl px-6">
@@ -52,21 +58,31 @@ export function FAQ() {
 
         {/* Accordion */}
         <div className="divide-y divide-border rounded-2xl border border-border bg-card overflow-hidden">
-          {faqs.map((faq) => (
-            <details key={faq.q} className="group px-7 py-0">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-5 text-sm font-semibold text-foreground hover:text-primary transition-colors">
-                {faq.q}
-                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-border text-muted-foreground group-open:rotate-45 transition-transform duration-200">
-                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                    <path d="M5 1v8M1 5h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                  </svg>
-                </span>
-              </summary>
-              <div className="pb-6">
-                <p className="text-sm leading-7 text-muted-foreground">{faq.a}</p>
+          {faqs.map((faq, i) => {
+            const isOpen = open === i;
+            return (
+              <div key={faq.q} className="px-7">
+                <button
+                  type="button"
+                  onClick={() => setOpen(isOpen ? null : i)}
+                  className="flex w-full cursor-pointer items-center justify-between gap-6 py-5 text-left text-sm font-semibold text-foreground hover:text-primary transition-colors"
+                  aria-expanded={isOpen}
+                >
+                  {faq.q}
+                  <span className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-border text-muted-foreground transition-transform duration-200 ${isOpen ? "rotate-45" : ""}`}>
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                      <path d="M5 1v8M1 5h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                    </svg>
+                  </span>
+                </button>
+                {isOpen && (
+                  <div className="pb-6">
+                    <p className="text-sm leading-7 text-muted-foreground">{faq.a}</p>
+                  </div>
+                )}
               </div>
-            </details>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
