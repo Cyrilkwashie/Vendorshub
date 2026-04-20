@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: #FAFAFA;
+  --color-foreground: #030303;
+  --color-primary: #160B35;
+  --color-secondary: #EEEEEE;
+  --color-muted: #F3F3F3;
+  --color-muted-foreground: #2E2E2E;
+  --color-border: #CECECE;
+  --color-card: #FFFFFF;
+  --color-card-foreground: #030303;
+  --font-sans: var(--font-geist-sans);
+  --font-serif: var(--font-playfair);
+  --font-mono: var(--font-geist-mono);
+}
+
