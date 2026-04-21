@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const cards = [
   {
-    href: "#",
+    href: "/register",
     icon: (
       <svg width="22" height="22" viewBox="0 0 22 22" fill="none" className="text-primary">
         <path d="M3 6h16M3 11h16M3 16h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
@@ -16,7 +16,7 @@ const cards = [
       "Launch a clean, shareable storefront that reflects your brand — no technical skills needed.",
   },
   {
-    href: "#",
+    href: "/register",
     icon: (
       <svg width="22" height="22" viewBox="0 0 22 22" fill="none" className="text-primary">
         <rect x="3" y="3" width="16" height="16" rx="3" stroke="currentColor" strokeWidth="1.5"/>
@@ -29,7 +29,7 @@ const cards = [
       "Track every order — from WhatsApp, Instagram, and your storefront — in one clean dashboard.",
   },
   {
-    href: "#",
+    href: "/register",
     icon: (
       <svg width="22" height="22" viewBox="0 0 22 22" fill="none" className="text-primary">
         <circle cx="9" cy="7" r="3.5" stroke="currentColor" strokeWidth="1.5"/>
@@ -44,7 +44,7 @@ const cards = [
       "Build a proper customer list, see purchase history, and follow up without losing track.",
   },
   {
-    href: "#",
+    href: "/register",
     icon: (
       <svg width="22" height="22" viewBox="0 0 22 22" fill="none" className="text-primary">
         <path d="M11 2l2.09 6.26L19 9.27l-4.73 4.11L15.82 20 11 17.27 6.18 20l1.55-6.62L3 9.27l5.91-1.01L11 2z"

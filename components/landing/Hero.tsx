@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 function StoreMockup() {
   return (
@@ -91,36 +92,38 @@ function StoreMockup() {
 export function LandingHero() {
   return (
     <section className="relative pt-28 pb-20 md:pt-36 md:pb-28 overflow-hidden">
-      {/* Subtle grid bg */}
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.025]"
-        style={{
-          backgroundImage:
-            "linear-gradient(var(--foreground) 1px, transparent 1px), linear-gradient(90deg, var(--foreground) 1px, transparent 1px)",
-          backgroundSize: "40px 40px",
-        }}
+      {/* Background image */}
+      <Image
+        src="/hero-bg.jpg"
+        alt=""
+        fill
+        sizes="100vw"
+        className="object-cover object-center"
+        priority
       />
+      {/* Dark overlay so text stays readable */}
+      <div className="pointer-events-none absolute inset-0 bg-primary/75" />
 
       <div className="relative mx-auto max-w-6xl px-6">
         <div className="grid gap-16 lg:grid-cols-[1fr_0.9fr] lg:items-center">
           {/* Left: copy */}
-          <div className="space-y-8">
+          <div className="flex flex-col space-y-8">
             {/* Label */}
-            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-1.5 text-xs font-medium text-muted-foreground">
-              <span className="h-1.5 w-1.5 rounded-full bg-primary/60" />
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-medium text-white/80 w-fit">
+              <span className="h-1.5 w-1.5 rounded-full bg-white/60" />
               Built for modern vendors
             </span>
 
             {/* Headline */}
             <div className="space-y-4">
               <h1
-                className="text-balance text-5xl font-serif font-semibold leading-[1.1] tracking-tight text-foreground md:text-6xl lg:text-[4.25rem]"
+                className="text-balance text-5xl font-serif font-semibold leading-[1.1] tracking-tight text-white md:text-6xl lg:text-[4.25rem]"
                 style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
               >
                 Turn your WhatsApp business into a real{" "}
-                <em className="not-italic text-primary">online store.</em>
+                <em className="not-italic text-white/80 underline decoration-white/30 underline-offset-4">online store.</em>
               </h1>
-              <p className="max-w-lg text-base leading-7 text-muted-foreground">
+              <p className="max-w-lg text-base leading-7 text-white/70">
                 VendorsHub gives Ghanaian and West African vendors a professional storefront, clean order tracking, and customer management — in minutes, not weeks.
               </p>
             </div>
@@ -129,7 +132,7 @@ export function LandingHero() {
             <div className="flex flex-wrap items-center gap-4">
               <Link
                 href="/register"
-                className="inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-white hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-px"
+                className="inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-primary hover:bg-white/90 transition-all hover:shadow-lg hover:-translate-y-px"
               >
                 Create My Free Store
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -138,7 +141,7 @@ export function LandingHero() {
               </Link>
               <Link
                 href="#how-it-works"
-                className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-white/70 hover:text-white transition-colors"
               >
                 See how it works
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -153,14 +156,14 @@ export function LandingHero() {
                 {["K", "A", "E", "O"].map((initial) => (
                   <span
                     key={initial}
-                    className="flex h-7 w-7 items-center justify-center rounded-full border-2 border-background bg-primary/10 text-[10px] font-semibold text-primary"
+                    className="flex h-7 w-7 items-center justify-center rounded-full border-2 border-primary bg-white/20 text-[10px] font-semibold text-white"
                   >
                     {initial}
                   </span>
                 ))}
               </div>
-              <p className="text-xs text-muted-foreground">
-                <span className="font-semibold text-foreground">500+</span> vendors already selling online
+              <p className="text-xs text-white/70">
+                <span className="font-semibold text-white">500+</span> vendors already selling online
               </p>
             </div>
           </div>
