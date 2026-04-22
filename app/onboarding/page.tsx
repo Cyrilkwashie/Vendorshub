@@ -3,12 +3,15 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Logo } from "@/components/shared/Logo";
+import { saveStoreProfile, addProduct } from "@/lib/store";
+import { setLocalAuth } from "@/lib/auth";
 import { OnboardingData, DEFAULT_DATA, PHASES, STEPS } from "./config";
 import { StepIdentity, StepStoreStyle, StepThemeBranding } from "./steps-build";
 import { StepLocation, StepWhatsApp } from "./steps-customize";
 import { StepFirstProduct, StepPlan } from "./steps-sell";
 import { LivePreview } from "./preview";
 import { LaunchScreen } from "./launch";
+import type { StoreTemplate } from "@/types";
 
 // ── Phase Indicator ───────────────────────────────────────────────────────────
 
@@ -97,6 +100,49 @@ export default function OnboardingPage() {
     <StepPlan key="plan" {...stepProps} />,
   ];
 
+  function handleLaunch() {
+    // Save store profile
+    const templateMap: Record<string, StoreTemplate> = {
+      "small-shop": "small-shop",
+      "category-shop": "category-shop",
+      "single-product": "single-product",
+    };
+    saveStoreProfile({
+      name: data.storeName || "My Store",
+      slug: data.slug || "my-store",
+      description: data.description || "",
+      whatsapp: data.whatsapp ? "+233" + data.whatsapp : "",
+      country: data.country || "GH",
+      city: data.city || "Accra",
+      plan: "growth",
+      email: "",
+      createdAt: new Date().toISOString(),
+      template: templateMap[data.storeStyle] || "small-shop",
+    });
+
+    // Save first product if provided
+    if (data.productName) {
+      addProduct({
+        name: data.productName,
+        description: data.productDescription || "",
+        priceGhs: parseFloat(data.productPrice) || 0,
+        inventory: 50,
+        category: "General",
+      });
+    }
+
+    // Ensure auth is set
+    try {
+      const auth = localStorage.getItem("vendorshub_auth");
+      if (auth) {
+        const parsed = JSON.parse(auth);
+        setLocalAuth({ name: parsed.name || data.storeName, email: parsed.email || "" });
+      }
+    } catch {}
+
+    setLaunched(true);
+  }
+
   if (launched) {
     return <LaunchScreen data={data} />;
   }
@@ -174,7 +220,7 @@ export default function OnboardingPage() {
                 {isLast ? (
                   <button
                     type="button"
-                    onClick={() => setLaunched(true)}
+                    onClick={handleLaunch}
                     className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-white hover:bg-primary/90 transition-all hover:shadow-lg"
                   >
                     🚀 Launch my store

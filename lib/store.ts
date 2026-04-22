@@ -166,6 +166,7 @@ export function seedStore(): void {
     plan: "growth",
     email: "adwoa@vendorshub.store",
     createdAt: new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString(),
+    template: "small-shop",
   };
   saveStoreProfile(profile);
 

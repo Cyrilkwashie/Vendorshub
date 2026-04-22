@@ -137,11 +137,7 @@ export function StepStoreStyle({ data, setData }: StepProps) {
             <div className="flex-1">
               <p className="text-sm font-semibold text-foreground">{style.label}</p>
               <p className="text-xs text-muted-foreground mt-0.5">{style.tagline}</p>
-              <div className="flex flex-wrap gap-1.5 mt-2.5">
-                {style.sections.filter(s => s !== "footer").map((s) => (
-                  <span key={s} className="rounded-full bg-muted px-2.5 py-0.5 text-[10px] font-medium text-muted-foreground capitalize">{s}</span>
-                ))}
-              </div>
+              <p className="text-[10px] text-primary/70 font-medium mt-1">Best for: {style.bestFor}</p>
             </div>
             {data.storeStyle === key && (
               <div className="absolute top-4 right-4 flex h-5 w-5 items-center justify-center rounded-full bg-primary">

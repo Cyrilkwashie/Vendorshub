@@ -1,6 +1,6 @@
 // ── Types ─────────────────────────────────────────────────────────────────────
 
-export type StoreStyle = "minimal" | "instagram" | "premium";
+export type StoreStyle = "small-shop" | "category-shop" | "single-product";
 export type ThemePreset = "luxury" | "clean" | "bold";
 
 export interface OnboardingData {
@@ -22,7 +22,7 @@ export const DEFAULT_DATA: OnboardingData = {
   storeName: "",
   description: "",
   slug: "",
-  storeStyle: "premium",
+  storeStyle: "small-shop",
   theme: "clean",
   country: "",
   city: "",
@@ -94,24 +94,28 @@ export const STORE_STYLES: Record<StoreStyle, {
   tagline: string;
   emoji: string;
   sections: string[];
+  bestFor: string;
 }> = {
-  minimal: {
-    label: "Minimal Store",
-    tagline: "Simple & clean — just the essentials",
-    emoji: "✨",
-    sections: ["hero", "products", "whatsapp", "footer"],
+  "small-shop": {
+    label: "Small Shop",
+    tagline: "Clean & modern — perfect for 5–30 products",
+    emoji: "🛍️",
+    sections: ["hero", "products", "about", "whatsapp", "footer"],
+    bestFor: "Fashion, jewellery, accessories",
   },
-  instagram: {
-    label: "Instagram Style",
-    tagline: "Visual & social — great for lifestyle brands",
-    emoji: "📸",
-    sections: ["hero", "products", "social", "whatsapp", "footer"],
+  "category-shop": {
+    label: "Category Shop",
+    tagline: "Organized by category — great for variety stores",
+    emoji: "📦",
+    sections: ["hero", "categories", "products", "about", "whatsapp", "footer"],
+    bestFor: "Multi-product stores, shoes & clothing",
   },
-  premium: {
-    label: "Premium Brand",
-    tagline: "Full-featured — the complete experience",
-    emoji: "👑",
-    sections: ["hero", "products", "about", "reviews", "whatsapp", "contact", "footer"],
+  "single-product": {
+    label: "Single Product",
+    tagline: "High-conversion landing page — sell one thing well",
+    emoji: "🎯",
+    sections: ["hero", "features", "gallery", "testimonials", "whatsapp", "footer"],
+    bestFor: "Dropshipping, signature products",
   },
 };
 

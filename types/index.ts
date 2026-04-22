@@ -1,5 +1,6 @@
 export type OrderStatus = "pending" | "processing" | "fulfilled";
 export type PlanType = "starter" | "growth" | "pro";
+export type StoreTemplate = "small-shop" | "category-shop" | "single-product";
 
 // ── Store (vendor profile) ────────────────────────────────────────────────────
 
@@ -13,6 +14,9 @@ export interface StoreProfile {
   plan: PlanType;
   email: string;
   createdAt: string;
+  template?: StoreTemplate;
+  bannerImage?: string;
+  headline?: string;
 }
 
 // ── Product ───────────────────────────────────────────────────────────────────
