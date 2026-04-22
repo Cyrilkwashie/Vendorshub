@@ -1,8 +1,36 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Logo } from "@/components/shared/Logo";
 import { RegisterCarousel } from "@/components/auth/RegisterCarousel";
+import { getLocalAuth, setLocalAuth } from "@/lib/auth";
 
 export default function RegisterPage() {
+  const router = useRouter();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  // If already logged in, skip registration
+  useEffect(() => {
+    if (getLocalAuth()) router.replace("/dashboard");
+  }, [router]);
+
+  function handleRegister(e: React.FormEvent) {
+    e.preventDefault();
+    setError("");
+    if (password.length < 8) {
+      setError("Password must be at least 8 characters.");
+      return;
+    }
+    setLoading(true);
+    setLocalAuth({ name, email });
+    router.push("/onboarding");
+  }
   return (
     <div className="flex min-h-screen">
       {/* Left — carousel */}
@@ -54,7 +82,12 @@ export default function RegisterPage() {
           </div>
 
           {/* Form */}
-          <form className="space-y-4">
+          <form onSubmit={handleRegister} className="space-y-4">
+            {error && (
+              <p className="rounded-xl bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-600">
+                {error}
+              </p>
+            )}
             <label className="block space-y-1.5 text-sm font-medium text-foreground">
               Full name
               <input
@@ -62,6 +95,9 @@ export default function RegisterPage() {
                 type="text"
                 placeholder="Ama Boateng"
                 autoComplete="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
               />
             </label>
 
@@ -72,6 +108,9 @@ export default function RegisterPage() {
                 type="email"
                 placeholder="you@example.com"
                 autoComplete="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
               />
             </label>
 
@@ -82,14 +121,18 @@ export default function RegisterPage() {
                 type="password"
                 placeholder="At least 8 characters"
                 autoComplete="new-password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
               />
             </label>
 
             <button
               type="submit"
-              className="mt-2 w-full rounded-full bg-primary px-5 py-3.5 text-sm font-semibold text-white hover:bg-primary/90 transition-all hover:shadow-lg"
+              disabled={loading}
+              className="mt-2 w-full rounded-full bg-primary px-5 py-3.5 text-sm font-semibold text-white hover:bg-primary/90 transition-all hover:shadow-lg disabled:opacity-60"
             >
-              Create my free account
+              {loading ? "Creating account…" : "Create my free account"}
             </button>
           </form>
 

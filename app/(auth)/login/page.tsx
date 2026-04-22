@@ -1,8 +1,33 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { Logo } from "@/components/shared/Logo";
+import { getLocalAuth, setLocalAuth } from "@/lib/auth";
 
 export default function LoginPage() {
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  // If already logged in, go straight to dashboard
+  useEffect(() => {
+    if (getLocalAuth()) router.replace("/dashboard");
+  }, [router]);
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+    const existing = getLocalAuth();
+    setLocalAuth({ name: existing?.name ?? email.split("@")[0], email });
+    router.push("/dashboard");
+  }
+
   return (
     <div className="flex min-h-screen">
       {/* Left — image panel */}
@@ -83,7 +108,12 @@ export default function LoginPage() {
           </div>
 
           {/* Form */}
-          <form className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {error && (
+              <p className="rounded-xl bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-600">
+                {error}
+              </p>
+            )}
             <label className="block space-y-1.5 text-sm font-medium text-foreground">
               Email address
               <input
@@ -91,6 +121,9 @@ export default function LoginPage() {
                 type="email"
                 placeholder="you@example.com"
                 autoComplete="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
               />
             </label>
 
@@ -101,6 +134,9 @@ export default function LoginPage() {
                 type="password"
                 placeholder="••••••••"
                 autoComplete="current-password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
               />
             </label>
 
@@ -112,9 +148,10 @@ export default function LoginPage() {
 
             <button
               type="submit"
-              className="w-full rounded-full bg-primary px-5 py-3.5 text-sm font-semibold text-white hover:bg-primary/90 transition-all hover:shadow-lg"
+              disabled={loading}
+              className="w-full rounded-full bg-primary px-5 py-3.5 text-sm font-semibold text-white hover:bg-primary/90 transition-all hover:shadow-lg disabled:opacity-60"
             >
-              Sign in
+              {loading ? "Signing in…" : "Sign in"}
             </button>
           </form>
 

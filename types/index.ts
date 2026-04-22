@@ -1,16 +1,21 @@
 export type OrderStatus = "pending" | "processing" | "fulfilled";
+export type PlanType = "starter" | "growth" | "pro";
 
-export interface Vendor {
-  id: string;
+// ── Store (vendor profile) ────────────────────────────────────────────────────
+
+export interface StoreProfile {
   name: string;
   slug: string;
+  description: string;
+  whatsapp: string;
+  country: string;
+  city: string;
+  plan: PlanType;
   email: string;
-  phone: string;
-  plan: "starter" | "growth" | "scale";
-  revenueGhs: number;
-  orders: number;
-  flagged: boolean;
+  createdAt: string;
 }
+
+// ── Product ───────────────────────────────────────────────────────────────────
 
 export interface Product {
   id: string;
@@ -18,28 +23,56 @@ export interface Product {
   description: string;
   priceGhs: number;
   inventory: number;
-  vendorId: string;
-  storeSlug: string;
   category: string;
+  imageUrl?: string;
+  createdAt: string;
+}
+
+// ── Order ─────────────────────────────────────────────────────────────────────
+
+export interface OrderItem {
+  productId: string;
+  productName: string;
+  quantity: number;
+  priceGhs: number;
 }
 
 export interface Order {
   id: string;
   customerId: string;
-  vendorId: string;
+  customerName: string;
+  customerPhone: string;
+  items: OrderItem[];
   totalGhs: number;
   status: OrderStatus;
+  note?: string;
   createdAt: string;
-  items: number;
 }
+
+// ── Customer ──────────────────────────────────────────────────────────────────
 
 export interface Customer {
   id: string;
   name: string;
-  email: string;
   phone: string;
+  email?: string;
   orders: number;
   lifetimeValueGhs: number;
+  lastOrderAt: string;
+}
+
+// ── Legacy / admin types ──────────────────────────────────────────────────────
+
+export interface Vendor {
+  id: string;
+  name: string;
+  slug: string;
+  email: string;
+  phone: string;
+  plan: PlanType;
+  revenueGhs: number;
+  orders: number;
+  flagged: boolean;
 }
 
 export interface RevenuePoint {
