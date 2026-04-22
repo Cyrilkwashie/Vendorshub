@@ -121,7 +121,7 @@ export default function DashboardOverviewPage() {
               tickFormatter={(v: number) => `₵${v}`}
             />
             <Tooltip
-              formatter={(v: number) => [formatGHS(v), "Revenue"]}
+              formatter={(v) => [formatGHS(typeof v === 'number' ? v : 0), "Revenue"]}
               contentStyle={{ borderRadius: 12, border: "1px solid #CECECE", fontSize: 12 }}
             />
             <Bar dataKey="value" fill="#160B35" radius={[6, 6, 0, 0]} />

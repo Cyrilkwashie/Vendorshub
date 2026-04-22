@@ -114,7 +114,7 @@ export default function DashboardAnalyticsPage() {
               tickFormatter={(v: number) => `₵${v}`}
             />
             <Tooltip
-              formatter={(v: number) => [formatGHS(v), "Revenue"]}
+              formatter={(v) => [formatGHS(typeof v === 'number' ? v : 0), "Revenue"]}
               contentStyle={{ borderRadius: 12, border: "1px solid #CECECE", fontSize: 12 }}
             />
             <Line
@@ -148,7 +148,7 @@ export default function DashboardAnalyticsPage() {
                 tickFormatter={(v: number) => `₵${v}`}
               />
               <Tooltip
-                formatter={(v: number) => [formatGHS(v), "Revenue"]}
+                formatter={(v) => [formatGHS(typeof v === 'number' ? v : 0), "Revenue"]}
                 contentStyle={{ borderRadius: 12, border: "1px solid #CECECE", fontSize: 12 }}
               />
               <Bar dataKey="value" fill="#160B35" radius={[4, 4, 0, 0]} />
@@ -180,7 +180,7 @@ export default function DashboardAnalyticsPage() {
                   ))}
                 </Pie>
                 <Tooltip
-                  formatter={(v: number, name: string) => [v, name]}
+                  formatter={(v, name) => [typeof v === 'number' ? v : 0, name]}
                   contentStyle={{ borderRadius: 12, border: "1px solid #CECECE", fontSize: 12 }}
                 />
               </PieChart>

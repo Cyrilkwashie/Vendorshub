@@ -61,7 +61,14 @@ const PLAN_BADGE: Record<string, string> = {
   pro: "bg-amber-50 text-amber-700",
 };
 
-export function Sidebar() {
+export interface SidebarItem {
+  href: string;
+  label: string;
+  exact?: boolean;
+  Icon?: React.ComponentType;
+}
+
+export function Sidebar({ title = "Dashboard", items }: { title?: string; items?: SidebarItem[] }) {
   const pathname = usePathname();
   const router = useRouter();
   const { profile } = useStoreProfile();
@@ -74,13 +81,16 @@ export function Sidebar() {
     router.push("/login");
   }
 
+  const navItems = items ?? NAV_ITEMS;
+
   return (
     <aside
       className="flex flex-col rounded-2xl border border-border bg-card shadow-sm w-full p-4"
       style={{ minHeight: "calc(100vh - 120px)" }}
     >
+      <h2 className="mb-4 text-lg font-bold text-foreground" style={{fontFamily: 'var(--font-playfair), Georgia, serif'}}>{title}</h2>
       <nav className="flex flex-col gap-1">
-        {NAV_ITEMS.map(({ href, label, exact, Icon }) => {
+        {navItems.map(({ href, label, exact, Icon }) => {
           const isActive = exact ? pathname === href : pathname.startsWith(href);
           return (
             <Link
@@ -93,7 +103,7 @@ export function Sidebar() {
                   : "text-muted-foreground hover:bg-muted hover:text-foreground",
               )}
             >
-              <span className="shrink-0"><Icon /></span>
+              {Icon && <span className="shrink-0"><Icon /></span>}
               {label}
             </Link>
           );

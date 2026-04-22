@@ -18,7 +18,7 @@ export function OrderCard({ order }: OrderCardProps) {
         </span>
       </div>
         <div className="mt-4 flex items-center justify-between text-sm text-muted-foreground">
-        <span>{order.items} items</span>
+        <span>{order.items.length} items</span>
         <span>{formatDate(order.createdAt)}</span>
       </div>
     </article>
